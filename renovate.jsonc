@@ -1,0 +1,41 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:best-practices"],
+  // For details about this repo's settings, see
+  // CONTRIBUTING.md#dependency-updates
+  "ignorePresets": ["security:minimumReleaseAgeNpm"],
+  "lockFileMaintenance": { "enabled": false },
+  "schedule": ["* * * * 0"],
+  "timezone": "UTC",
+  "labels": ["dependencies"],
+  "gomod": { "enabled": false },
+  "minimumReleaseAge": "7 days",
+  "packageRules": [
+    {
+      "groupName": "all patch versions",
+      "matchUpdateTypes": ["patch"],
+      "matchManagers": ["!github-actions"],
+    },
+    {
+      "groupName": "all minor versions",
+      "matchUpdateTypes": ["minor"],
+      "matchManagers": ["!github-actions"],
+    },
+    {
+      "matchManagers": ["github-actions"],
+      // Not "runs-on" labels: they have no releases to look up.
+      "matchDepTypes": ["action", "workflow"],
+      "overrideDatasource": "github-releases",
+      "branchTopic": "{{{depNameSanitized}}}-{{{newDigest}}}",
+    },
+    {
+      "matchPackageNames": ["hugo-extended"],
+      "enabled": false,
+    },
+    {
+      "matchPackageNames": ["bootstrap", "@fortawesome/fontawesome-free"],
+      "enabled": false,
+    },
+  ],
+  // cSpell:ignore datasource hugo fortawesome fontawesome
+}

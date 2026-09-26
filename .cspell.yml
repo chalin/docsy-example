@@ -8,4 +8,6 @@ words:
   - github
   - gohugoio
   - Goldydocs
+  - gomod
+  - hugoautogen
   - pageinfo
