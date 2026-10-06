@@ -60,7 +60,7 @@
     "cross-env": "10.1.0",
     "hugo-extended": "0.164.0",
     "link-cache": "0.6.0",
-    "postcss-cli": "11.0.1",
+    "postcss-cli": "12.0.0",
     "rtlcss": "4.3.0",
     "sass-embedded": "1.105.0"
   },
@@ -69,15 +69,14 @@
     "prettier": "3.9.9"
   },
   "overrides": {
-    "adm-zip": "0.6.1"
+    "adm-zip": "^0.6.1"
   },
   "engines": {
     "node": ">=24",
-    "npm": ">=11.16.0"
+    "npm": ">=11.18.0"
   },
   "allowScripts": {
     "@parcel/watcher": false,
-    "fsevents": false,
     "hugo-extended@0.164.0": true
   },
   "private": true,
