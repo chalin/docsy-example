@@ -244,6 +244,12 @@ security:
     getenv: # cspell:disable-line
       # Netlify build env var
       - ^(BRANCH|BUILD_ID|COMMIT_REF|CONTEXT|DEPLOY_ID|NETLIFY|PULL_REQUEST|REVIEW_ID)$
+  node:
+    permissions:
+      # Hugo 0.166+ denies Node tools (PostCSS, for the RTL build) a symlink
+      # that resolves outside the project; maintainers keep `public` as a
+      # symlink to a sibling snapshot repo (`../docsy-example.g`).
+      allowRead: ['.', '../docsy-example.g']
 
 module:
   # Uncomment the next line to build and serve using local docsy clone declared in the named Hugo workspace:
