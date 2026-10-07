@@ -15,7 +15,7 @@ enableRobotsTXT: true
 # Will give values to .Lastmod etc.
 enableGitInfo: true
 
-# Comment out to disable taxonomies in Docsy
+# Uncomment to disable taxonomies in Docsy
 # disableKinds: [taxonomy]
 
 # You can add your own taxonomies
@@ -93,12 +93,16 @@ markup:
     # Uncomment if you want your chosen highlight style used for code blocks without a specified language
     # guessSyntax: true
 
-# Everything below this are Site Params
-
-# Comment out if you don't want the "print entire section" link enabled.
+# Output formats per page kind, beyond HTML. Remove `print` to drop the "print
+# entire section" link; `redirects` writes the Netlify `_redirects` file;
+# `markdown` and `LLMS` are Docsy's agent support (Markdown page versions and a
+# per-site llms.txt), see https://www.docsy.dev/docs/content/agent-support/.
 outputs:
-  home: [HTML, print, RSS, redirects]
-  section: [HTML, print, RSS]
+  home: [HTML, print, RSS, redirects, markdown, LLMS]
+  page: [HTML, markdown]
+  section: [HTML, print, RSS, markdown]
+
+# Everything below this are Site Params
 
 params:
   taxonomy:
@@ -131,16 +135,16 @@ params:
   version: 0.17.1-dev
 
   # Repository configuration (URLs for in-page links to opening issues and suggesting changes)
-  github_repo: https://github.com/google/docsy-example
+  github_repo: https://github.com/docsy/docsy-example
 
   # An optional link to a related project repo. For example, the sibling repository where your product code lives.
-  github_project_repo: https://github.com/google/docsy
+  github_project_repo: https://github.com/docsy/docsy
 
   # Specify a value here if your content directory is not in your repo's root directory
   # github_subdir: ""
 
-  # Uncomment this if your GitHub repo does not have "main" as the default branch,
-  # or specify a new value if you want to reference another branch in your GitHub links
+  # Change this if your GitHub repo does not have "main" as the default branch,
+  # or if you want to reference another branch in your GitHub links
   github_branch: main
 
   # Google Custom Search Engine ID. Remove or comment out to disable search.
@@ -223,7 +227,7 @@ params:
         icon: fa-solid fa-hammer
         desc: Site build information.
       - name: GitHub
-        url: https://github.com/google/docsy
+        url: https://github.com/docsy/docsy
         icon: fab fa-github
         desc: Development takes place here!
       - name: Slack
@@ -248,5 +252,5 @@ module:
     extended: true
     min: 0.160.1
   imports:
-    - path: github.com/google/docsy/theme
+    - path: github.com/docsy/docsy/theme
       disable: false
