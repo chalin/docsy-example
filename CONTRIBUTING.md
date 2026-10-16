@@ -114,6 +114,26 @@ npm run local -- serve
 The `local` prefix runs the script against the sibling Docsy, and the server
 watches it, so theme edits hot-reload.
 
+### Built-site snapshot
+
+To diff each build against the last (the A/B diff step of Docsy's [consumer-site
+test procedure][]), keep the built site in a git repo and commit it after each
+build with `npm run _commit:public`. Two layouts:
+
+- `npm run make:public` makes `public/` itself a repo, inside the project; it
+  needs no configuration.
+- Maintainers keep `public` as a symlink to a sibling repo, `docsy-example.g`,
+  so that the primary clone and its task worktrees (`wt/docsy-example/TASK`,
+  beside the clone) share one snapshot. Hugo's Node [permission model][] rejects
+  a symlink whose target isn't in `security.node.permissions.allowRead`, so
+  `hugo.yaml` lists the snapshot as seen from the clone (`../docsy-example.g`)
+  and from a worktree (`../../../docsy-example.g`), plus `.` (the npm workspace
+  link under `node_modules/@docsy` resolves into the project and needs it).
+  PostCSS, run for the RTL stylesheet, is the tool that trips the check. From a
+  worktree, the entry is live whether or not `public` is a symlink; an entry
+  whose path doesn't exist is inert. A snapshot kept elsewhere needs its own
+  entry.
+
 ### Link checking
 
 For the link cache (the committed `link-cache.jsonc`, its fields, and the
@@ -129,6 +149,7 @@ cache][]. What differs here:
 
 <!-- prettier-ignore-start -->
 [alternate dashboard]: https://app.netlify.com/sites/goldydocs/deploys
+[consumer-site test procedure]: https://main--docsydocs.netlify.app/project/about/maintainer-notes/#consumer-site-test
 [contribution guidelines]: https://main--docsydocs.netlify.app/docs/contributing/
 [Dependency updates]: https://main--docsydocs.netlify.app/project/about/maintainer-notes/#dependency-updates
 [deploys]: https://app.netlify.com/sites/docsy-example/deploys
@@ -139,6 +160,7 @@ cache][]. What differs here:
 [main ruleset]: https://github.com/docsy/docsy-example/rules/23697395
 [Merge requirements]: https://main--docsydocs.netlify.app/project/about/maintainer-notes/#merge-requirements
 [officially supported version]: https://main--docsydocs.netlify.app/project/about/maintainer-notes/#official-hugo-version
+[permission model]: https://gohugo.io/configuration/security/#nodepermissionsallowread
 [workflow security analysis]: https://main--docsydocs.netlify.app/project/about/maintainer-notes/#workflow-security-analysis
 <!-- prettier-ignore-end -->
 
