@@ -1,4 +1,5 @@
-# Build the example site and check links with Lychee.
+# Build the example site, check its links with Lychee, and guard the npm-script
+# posture and the committed generated files.
 # cSpell:ignore lycheeverse
 
 name: links
@@ -10,9 +11,15 @@ on:
   workflow_dispatch:
 permissions:
   contents: read
+# github.ref: a newer push to main cancels the run in progress too; this
+# workflow only checks, so nothing is lost.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   check-links:
+    name: Check links
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
